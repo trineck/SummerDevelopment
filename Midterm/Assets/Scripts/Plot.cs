@@ -20,13 +20,17 @@ public class Plot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			Application.LoadLevel (0);
+		} 
+
 		ShowingText.text = DeathNote;
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit rayHit = new RaycastHit();
 
 		if ( Physics.Raycast ( ray, out rayHit, 8f )&& Input.GetMouseButtonDown (0) ) {
 
-			if ( rayHit.rigidbody == Door1 ) {
+			if ( rayHit.rigidbody == Door1 || rayHit.rigidbody == Door2 ) {
 				DeathNote = "";
 			if (signContract == false) {
 				DeathNote += " Would you like to sign a contract with me? \nPress Y/N";
@@ -34,18 +38,11 @@ public class Plot : MonoBehaviour {
 					DeathNote += " Come on in, I will give you a hearty hospitality.";
 				}
 			}
-			if ( rayHit.rigidbody == Door2 ) {
-				DeathNote = "";
-				if (signContract == false) {
-					DeathNote += " Would you like to sign a contract with me? \nPress Y/N";
-				}else if (signContract == true) {
-					DeathNote += " Come on in, I will give you a hearty hospitality.";
-				}
-			}
+
 			if ( rayHit.rigidbody == Door3 ){
 				DeathNote ="";
 				if (suicide == false && signContract ==true) {
-					DeathNote +=" You don't love your wife, do you? You bitch!";
+					DeathNote +=" You don't love your wife, do you? You coward!";
 				}else if (suicide == true){
 					DeathNote += "Let's begin your journey to the Hell!"; 
 				}
